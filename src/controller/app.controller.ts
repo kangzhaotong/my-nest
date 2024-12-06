@@ -10,15 +10,16 @@
  *
  * 被 @Controller() 修饰的类，可以通过其构造函数完成依赖注入，但依赖注入的类必须与当前类属于同一个模块
  */
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from '../app.service';
+import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
+// import { AppService } from '../app.service';
+import { UserService } from '../services/user.serve';
 
-@Controller()
+@Controller('/app')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly userService: UserService) {}
 
-  @Get('/children')
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('/children/:id?')
+  getHello(@Param('id') id: string): object {
+    return this.userService.getUserInfo(id);
   }
 }
