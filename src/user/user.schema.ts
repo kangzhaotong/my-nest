@@ -16,9 +16,9 @@
 // export type UserDocument = User & Document;
 // export const UserSchema = SchemaFactory.createForClass(User);
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 @Schema()
-export class User extends Document {
+export class User {
   @Prop({ required: true })
   name: string;
   @Prop()
@@ -26,5 +26,5 @@ export class User extends Document {
   @Prop()
   height: number;
 }
-export type UserDocument = User & Document;
+export type UserDocument = HydratedDocument<User>;
 export const UserSchema = SchemaFactory.createForClass(User);

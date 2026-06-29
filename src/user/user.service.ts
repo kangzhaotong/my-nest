@@ -27,7 +27,7 @@ export class UserService {
     return temp;
   }
   // // 删除
-  async delete(sid: number) {
+  async delete(sid: number): Promise<{ acknowledged?: boolean; deletedCount: number }> {
     // 这里是异步的 deleteOne 方法删除成功并返回相应的个数
     const temp = await this.userTest.deleteOne({ _id: sid });
     return temp;

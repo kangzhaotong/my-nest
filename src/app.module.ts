@@ -13,13 +13,13 @@ import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
-    UserModule,
+    // UserModule,
     setupConfig(),
-    setupMongodb(),
+    // setupMongodb(),
     DatabaseModule, // MySQL 数据库模块
     ProductModule, // 商品模块
   ],
-  controllers: [AppController, LoginController, MyCatController],
-  providers: [AppService, UserService, MyCatService],
+  // controllers: [AppController],
+  // providers: [AppService],
 })
 export class AppModule {}

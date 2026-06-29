@@ -8,6 +8,15 @@ import { Logger } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  const ignoredBrowserRequestPaths = [
+    '/favicon.ico',
+    '/.well-known/appspecific/com.chrome.devtools.json',
+  ];
+
+  ignoredBrowserRequestPaths.forEach((path) => {
+    app.use(path, (_request, response) => response.status(204).send());
+  });
+
   // 注册全局响应拦截器（统一响应格式）
   app.useGlobalInterceptors(new TransformInterceptor());
 

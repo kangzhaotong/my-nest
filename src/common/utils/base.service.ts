@@ -6,7 +6,14 @@ import { Repository, FindOptionsWhere, FindManyOptions } from 'typeorm';
 import { BusinessException } from '../exceptions/business.exception';
 import { ErrorCode } from '../constants/error-code.constant';
 
-export class BaseService<T> {
+/**
+ * 定义实体必须有 id 字段
+ */
+interface BaseEntity {
+  id: number;
+}
+
+export class BaseService<T extends BaseEntity> {
   constructor(protected readonly repository: Repository<T>) {}
 
   /**
@@ -16,7 +23,8 @@ export class BaseService<T> {
   async create(createDto: Partial<T>): Promise<T> {
     try {
       const entity = this.repository.create(createDto as any);
-      return await this.repository.save(entity);
+      const result = await this.repository.save(entity);
+      return result as unknown as T;
     } catch (error) {
       throw new BusinessException(
         ErrorCode.DATABASE_ERROR,
@@ -32,7 +40,7 @@ export class BaseService<T> {
    */
   async findById(id: number, throwError: boolean = true): Promise<T | null> {
     const entity = await this.repository.findOne({
-      where: { id } as FindOptionsWhere<T>,
+      where: { id } as unknown as FindOptionsWhere<T>,
     });
 
     if (!entity && throwError) {
@@ -97,7 +105,8 @@ export class BaseService<T> {
     try {
       // 合并更新数据
       const updatedEntity = this.repository.merge(entity, updateDto as any);
-      return await this.repository.save(updatedEntity);
+      const result = await this.repository.save(updatedEntity);
+      return result as unknown as T;
     } catch (error) {
       throw new BusinessException(
         ErrorCode.DATABASE_ERROR,
