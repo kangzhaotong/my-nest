@@ -25,7 +25,10 @@ export class ProductService extends BaseService<Product> {
    */
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
     // 参数验证
-    if (!createProductDto.name || ValidatorUtil.isEmpty(createProductDto.name)) {
+    if (
+      !createProductDto.name ||
+      ValidatorUtil.isEmpty(createProductDto.name)
+    ) {
       throw BusinessException.paramsError('商品名称不能为空');
     }
 
@@ -45,7 +48,9 @@ export class ProductService extends BaseService<Product> {
     }
 
     // 检查商品名称是否已存在
-    const existProduct = await this.findOne({ name: createProductDto.name } as any);
+    const existProduct = await this.findOne({
+      name: createProductDto.name,
+    } as any);
     if (existProduct) {
       throw BusinessException.paramsError('商品名称已存在');
     }
@@ -90,7 +95,15 @@ export class ProductService extends BaseService<Product> {
    * 查询商品列表（带条件查询和分页）
    */
   async queryProducts(queryDto: QueryProductDto) {
-    const { page = 1, pageSize = 10, name, status, category, minPrice, maxPrice } = queryDto;
+    const {
+      page = 1,
+      pageSize = 10,
+      name,
+      status,
+      category,
+      minPrice,
+      maxPrice,
+    } = queryDto;
 
     // 构建查询条件
     const where: any = {};

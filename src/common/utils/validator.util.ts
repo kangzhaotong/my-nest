@@ -25,7 +25,8 @@ export class ValidatorUtil {
    * @param idCard 身份证号
    */
   static isIdCard(idCard: string): boolean {
-    const idCardRegex = /^[1-9]\d{5}(18|19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}[\dXx]$/;
+    const idCardRegex =
+      /^[1-9]\d{5}(18|19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}[\dXx]$/;
     return idCardRegex.test(idCard);
   }
 
@@ -47,7 +48,8 @@ export class ValidatorUtil {
    * @param ip IP 地址
    */
   static isIPv4(ip: string): boolean {
-    const ipRegex = /^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
+    const ipRegex =
+      /^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
     return ipRegex.test(ip);
   }
 

@@ -13,6 +13,9 @@ interface BaseEntity {
   id: number;
 }
 
+const getErrorMessage = (error: unknown): string =>
+  error instanceof Error ? error.message : String(error);
+
 export class BaseService<T extends BaseEntity> {
   constructor(protected readonly repository: Repository<T>) {}
 
@@ -28,7 +31,7 @@ export class BaseService<T extends BaseEntity> {
     } catch (error) {
       throw new BusinessException(
         ErrorCode.DATABASE_ERROR,
-        `创建失败: ${error.message}`,
+        `创建失败: ${getErrorMessage(error)}`,
       );
     }
   }
@@ -110,7 +113,7 @@ export class BaseService<T extends BaseEntity> {
     } catch (error) {
       throw new BusinessException(
         ErrorCode.DATABASE_ERROR,
-        `更新失败: ${error.message}`,
+        `更新失败: ${getErrorMessage(error)}`,
       );
     }
   }
@@ -134,7 +137,7 @@ export class BaseService<T extends BaseEntity> {
       }
       throw new BusinessException(
         ErrorCode.DATABASE_ERROR,
-        `删除失败: ${error.message}`,
+        `删除失败: ${getErrorMessage(error)}`,
       );
     }
   }
@@ -159,7 +162,7 @@ export class BaseService<T extends BaseEntity> {
       }
       throw new BusinessException(
         ErrorCode.DATABASE_ERROR,
-        `批量删除失败: ${error.message}`,
+        `批量删除失败: ${getErrorMessage(error)}`,
       );
     }
   }

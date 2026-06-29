@@ -1,5 +1,4 @@
-import { Controller, Get, Req, Res, Param, Query } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { MyCatService } from '../../services/myCat.serve';
 import { AppService } from '../../app.service';
 @Controller('/myCat')
