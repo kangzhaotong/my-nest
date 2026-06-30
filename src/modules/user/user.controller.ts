@@ -15,7 +15,7 @@ import { UserService } from './user.service';
 // 引入创建用户 DTO 用于限制从接口处传来的参数
 import { CreateUserDto } from './user.dto';
 // 引入公共方法
-import { ResponseUtil, BusinessException } from '../common';
+import { ResponseUtil, BusinessException } from '../../common';
 
 // 配置局部路由
 @Controller('user')
